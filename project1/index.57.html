@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Spotify Desktop UI Clone</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+body{
+    background:#000;
+    color:#fff;
+    overflow:hidden;
+}
+
+/* ===== TOP BAR ===== */
+.topbar{
+    height:64px;
+    background:#000;
+    display:flex;
+    align-items:center;
+    padding:0 20px;
+    gap:20px;
+    border-bottom:1px solid #111;
+}
+.logo{font-size:22px;}
+.nav-icons{display:flex;gap:10px;}
+.nav-icons div{
+    width:36px;height:36px;border-radius:50%;
+    background:#1a1a1a;
+    display:flex;align-items:center;justify-content:center;
+}
+.search{
+    flex:1;background:#1a1a1a;border-radius:30px;
+    padding:10px 15px;display:flex;gap:10px;align-items:center;
+}
+.search input{
+    background:none;border:none;outline:none;
+    color:#fff;width:100%;
+}
+.top-right{display:flex;gap:15px;align-items:center;}
+.btn-white{
+    background:#fff;color:#000;
+    padding:8px 16px;border-radius:20px;font-weight:bold;
+    border:none;
+}
+
+/* ===== APP LAYOUT ===== */
+.app{display:flex;height:calc(100vh - 64px - 90px);}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+    width:280px;background:#121212;padding:15px;
+}
+.lib-header{
+    display:flex;justify-content:space-between;
+    align-items:center;margin-bottom:15px;
+}
+.filters{display:flex;gap:10px;margin-bottom:15px;}
+.filters span{
+    background:#2a2a2a;padding:6px 14px;
+    border-radius:20px;font-size:14px;
+}
+.lib-item{
+    display:flex;gap:12px;padding:10px;
+    border-radius:6px;align-items:center;
+}
+.lib-item.active{background:#1f1f1f;}
+.lib-img{
+    width:48px;height:48px;border-radius:6px;
+    object-fit:cover;background:#333;
+}
+.lib-text p{font-size:13px;color:#b3b3b3;}
+
+/* ===== MAIN CONTENT ===== */
+.main{
+    flex:1;background:linear-gradient(#1c1c1c,#000);
+    padding:25px;overflow-y:auto;
+}
+.main h1{margin-bottom:20px;}
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+    gap:20px;
+}
+.card{
+    background:#181818;padding:12px;border-radius:8px;
+    transition:.3s;
+}
+.card:hover{background:#242424;}
+.card-img{
+    width:100%;
+    height:170px;            /* Spotify card size */
+    border-radius:8px;
+    object-fit:cover;
+    background:#333;
+    margin-bottom:8px;
+}
+.card span{
+    display:inline-block;margin-top:6px;
+    padding:4px 6px;font-size:12px;
+    background:#ff69b4;color:#000;border-radius:2px;
+}
+
+/* ===== PLAYER ===== */
+.player{
+    height:90px;background:#000;border-top:1px solid #111;
+    display:grid;grid-template-columns:1fr 2fr 1fr;
+    align-items:center;padding:0 20px;
+}
+.now-playing{display:flex;gap:10px;align-items:center;}
+.album{
+    width:56px;height:56px;border-radius:4px;
+    object-fit:cover;background:#333;
+}
+.controls{
+    display:flex;flex-direction:column;
+    align-items:center;gap:8px;
+}
+.control-btns{
+    display:flex;gap:20px;align-items:center;
+}
+.play{
+    width:36px;height:36px;border-radius:50%;
+    background:#fff;color:#000;
+    display:flex;align-items:center;justify-content:center;
+}
+.progress{
+    display:flex;gap:10px;width:100%;align-items:center;
+}
+.bar{flex:1;height:4px;background:#333;border-radius:2px;}
+.bar-fill{width:25%;height:100%;background:#fff;}
+.right-controls{
+    display:flex;gap:15px;justify-content:flex-end;
+}
+
+
+@media (max-width: 900px) {
+    .sidebar {
+        display: none;
+    }
+
+    .main {
+        padding: 15px;
+    }
+
+    .player {
+        grid-template-columns: 1fr 1.5fr 1fr;
+        padding: 0 10px;
+    }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+    .top-right {
+        display: none;
+    }
+
+    .topbar {
+        padding: 0 10px;
+        height: 56px;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .card-img {
+        height: 140px;
+    }
+
+    .right-controls {
+        display: none;
+    }
+
+    .player {
+        height: 70px;
+        grid-template-columns: 1fr 2fr;
+    }
+
+    .album {
+        width: 44px;
+        height: 44px;
+    }
+
+    .play {
+        width: 30px;
+        height: 30px;
+    }
+
+    .progress span {
+        font-size: 10px;
+    }
+}
+
+/* ===== SMALL MOBILE ===== */
+@media (max-width: 400px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .card-img {
+        height: 160px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <i class="fa-brands fa-spotify logo"></i>
+
+    <div class="nav-icons">
+        <div><i class="fa-solid fa-house"></i></div>
+    </div>
+
+    <div class="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input placeholder="What do you want to play?">
+    </div>
+
+    <div class="top-right">
+        <button class="btn-white">Explore Premium</button>
+        <span>Install App</span>
+        <i class="fa-regular fa-bell"></i>
+        <i class="fa-solid fa-user"></i>
+    </div>
+</div>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="lib-header">
+        <h3>Your Library</h3><span>+ Create</span>
+    </div>
+
+    <div class="filters">
+        <span>Artists</span><span>Albums</span>
+    </div>
+
+    <div class="lib-item active">
+        <img class="lib-img" alt="mirchi" src="./Screenshot 2025-12-23 224846.jpg">
+        <div class="lib-text">
+            <strong>Liked Songs</strong>
+            <p>Playlist • 3 songs</p>
+        </div>
+    </div>
+
+    <div class="lib-item">
+        <img class="lib-img" alt="mirchi" src="./Screenshot 2025-12-23 231026.png">
+        <div class="lib-text">
+            <strong>Mirchi</strong>
+            <p>Single • DIVINE</p>
+        </div>
+    </div>
+
+    <div class="lib-item">
+        <img class="lib-img" alt="bts" src="./Screenshot 2025-12-23 231251.png">
+        <div class="lib-text">
+            <strong>BTS</strong>
+            <p>Artist</p>
+        </div>
+    </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+    <h1>Your top mixes</h1>
+
+    <div class="cards">
+        <div class="card"><img class="card-img" src="https://wallpaperaccess.com/full/5071484.jpg" width="300px" height="300px"> <span>K-Pop Mix</span></div>
+        <div class="card"><img class="card-img" src="https://i.scdn.co/image/ab67616d0000b273083b65ccb6bbec16c8d56eb4"><span>Hindi Mix</span></div>
+        <div class="card"><img class="card-img" src="https://images.summitmedia-digital.com/spotph/images/2022/06/08/spotify-bts-1654685462.jpeg"><span>BTS Mix</span></div>
+        <div class="card"><img class="card-img" src="https://i.scdn.co/image/ab67616d0000b2736671ddb504e94f9e26ae02e5"><span>2010s Mix</span></div>
+        <div class="card"><img class="card-img" src="https://i.scdn.co/image/ab67616d0000b273a78c32bcc69c91c30f71ad69"><span>Happy Mix</span></div>
+        <div class="card"><img class="card-img" src="https://i.scdn.co/image/ab67616d0000b2734439e680e8080e3b889352b9" ><span>Sonu Nigam Mix</span></div>
+        <div class="card"><img class="card-img" src="https://i.scdn.co/image/ab67616d0000b2739771a886104aef0bc5211b3d"><span>2020s Mix</span></div>
+        <div class="card"><img class="card-img" src="https://i1.sndcdn.com/artworks-zgmERYFqzpV48Nfi-Kz2fdQ-t500x500.jpg"><span>Moody Mix</span></div>
+        <div class="card"><img class="card-img" src="https://i.scdn.co/image/ab67616d0000b273d8f6d34d1566b18143887034"><span>Diljit Dosanjh Mix</span></div>
+        <div class="card"><img class="card-img" src="https://i.scdn.co/image/ab67616d0000b2736fb02b12fa4c68f84cd92142"><span>2000s Mix</span></div>
+    </div>
+</main>
+</div>
+
+<!-- PLAYER -->
+<footer class="player">
+    <div class="now-playing">
+        <img class="album" alt="now playing" src="./Screenshot 2025-12-23 231604.png">
+        <div>
+            <strong>Born to Shine</strong>
+            <p style="font-size:12px;color:#b3b3b3;">Diljit Dosanjh</p>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="control-btns">
+            <i class="fa-solid fa-shuffle"></i>
+            <i class="fa-solid fa-backward-step"></i>
+            <div class="play"><i class="fa-solid fa-play"></i></div>
+            <i class="fa-solid fa-forward-step"></i>
+            <i class="fa-solid fa-repeat"></i>
+        </div>
+        <div class="progress">
+            <span>0:05</span>
+            <div class="bar"><div class="bar-fill"></div></div>
+            <span>3:33</span>
+        </div>
+    </div>
+
+    <div class="right-controls">
+        <i class="fa-solid fa-list"></i>
+        <i class="fa-solid fa-volume-high"></i>
+    </div>
+</footer>
+
+</body>
+</html>
